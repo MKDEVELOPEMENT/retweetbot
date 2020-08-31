@@ -1,3 +1,5 @@
+import tweepy
+
 def create_api():
     #insert your appropriate developer keys below
     consumer_key = "SpmKgkNv5otNcy70HnrvB6ZZo"
