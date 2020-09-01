@@ -15,7 +15,7 @@ def create_api():
         api.verify_credentials()
     except Exception as e:
         #logger.error("Error creating API", exc_info=True)
-        print('error here')
+        print('error connecting api: ' + e)
         raise e
     #logger.info("API created")
     return api
@@ -30,12 +30,11 @@ class RetweetListener(tweepy.StreamListener):
         #list of words to identify dan or hayley
         dan_words = ['team_dan', 'teamdan', 'dandaggerdick', 'dan']
         hayley_words = ['hayley', 'cyrilswhore']
-        print("processing tweet id: " + tweet.id)
+        print("processing tweet id: " + str(tweet.id))
         
         #tweet should contain one reference to dan AND one reference to Hayley
         if any(word in tweet.text.lower() for word in dan_words) and any(word in tweet.text.lower() for word in hayley_words): 
             print('Contains hayley and dan: ', tweet.text)
-            tweet.retweet()
 
             #tweet is from account retweeting, therefore do not retweet
             if tweet.user.id == self.me.id:
@@ -46,7 +45,7 @@ class RetweetListener(tweepy.StreamListener):
                 try:
                     tweet.retweet()
                 except Exception as e:
-                    print('error retweeting id: ' + tweet.id)
+                    print('error retweeting id: ' + e)
 
     def on_error(self, status):
         print('error while processing tweet')
